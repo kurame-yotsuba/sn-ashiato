@@ -16,7 +16,7 @@ namespace SwallowNest.Ashiato.Tests
 		/// </summary>
 		List<string> log;
 		Logger logger;
-		string sampleText = "sample text";
+		readonly string sampleText = "sample text";
 
 		void SamplePrinter(string logText, LogLevel logLevel)
 		{

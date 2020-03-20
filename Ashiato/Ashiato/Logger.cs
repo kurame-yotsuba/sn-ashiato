@@ -28,6 +28,11 @@ namespace SwallowNest.Ashiato
 		public event LogPrintHandler? Printer;
 
 		/// <summary>
+		/// ログ履歴をリフレッシュするイベントハンドラー
+		/// </summary>
+		public event LogRefleshHandler? Reflesh;
+
+		/// <summary>
 		/// ログを出力します。
 		/// </summary>
 		/// <param name="logText"></param>
@@ -41,6 +46,7 @@ namespace SwallowNest.Ashiato
 			{
 				lock (syncObject)
 				{
+					Reflesh?.Invoke();
 					Printer(logText, logLevel);
 				}
 			}

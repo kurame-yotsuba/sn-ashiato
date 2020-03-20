@@ -2,6 +2,7 @@
 using SwallowNest.Ashiato;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,23 +14,20 @@ namespace SwallowNest.Ashiato.Tests
 		/// <summary>
 		/// ログの出力先
 		/// </summary>
-		List<string> logBuffer;
+		List<string> log;
 		Logger logger;
 		string sampleText = "sample text";
 
 		void SamplePrinter(string logText, LogLevel logLevel)
 		{
-			logBuffer.Add(logText);
+			log.Add(logText);
 		}
 
 		[TestInitialize]
 		public void TestInitialize()
 		{
-			logBuffer = new List<string>();
-			logger = new Logger()
-			{
-				OutputLogLevel = LogLevel.TRACE
-			};
+			log = new List<string>();
+			logger = new Logger();
 		}
 
 		[TestMethod()]
@@ -43,7 +41,7 @@ namespace SwallowNest.Ashiato.Tests
 
 			for(int i = 0; i < 10; i++)
 			{
-				Assert.AreEqual($"{sampleText} {i}", logBuffer[i]);
+				Assert.AreEqual($"{sampleText} {i}", log[i]);
 			}
 		}
 
@@ -66,6 +64,69 @@ namespace SwallowNest.Ashiato.Tests
 			Parallel.For(0, parallelNum, (_, __) => logger.Print(""));
 
 			Assert.AreEqual(parallelNum, state);
+		}
+
+		[DataTestMethod]
+		[DataRow(LogLevel.INFO)]
+		[DataRow(LogLevel.WARN)]
+		[DataRow(LogLevel.ERROR)]
+		public void OutputLogLevel以上のlevelをPrintできるか(LogLevel level)
+		{
+			logger.Printer += SamplePrinter;
+			logger.OutputLogLevel = LogLevel.INFO;
+
+			logger.Print(sampleText, level);
+
+			Assert.AreEqual(sampleText, log[0]);
+		}
+
+		[DataTestMethod]
+		[DataRow(LogLevel.TRACE)]
+		public void OutputLogLevel未満のlevelはPrintしない(LogLevel level)
+		{
+			logger.Printer += SamplePrinter;
+			logger.OutputLogLevel = LogLevel.INFO;
+
+			logger.Print(sampleText, level);
+
+			Assert.AreEqual(0, log.Count);
+		}
+
+		[TestMethod]
+		public void RefleshTest()
+		{
+			void 要素が5つ以上だったら先頭のログを削除()
+			{
+				if (log.Count >= 5)
+				{
+					log.RemoveAt(0);
+				}
+			}
+
+			logger.Printer += SamplePrinter;
+			logger.Reflesh += 要素が5つ以上だったら先頭のログを削除;
+
+			logger.Print("Info", LogLevel.INFO);
+			Assert.AreEqual(1, log.Count);
+
+			logger.Print("Info", LogLevel.INFO);
+			Assert.AreEqual(2, log.Count);
+
+			logger.Print("Info", LogLevel.INFO);
+			Assert.AreEqual(3, log.Count);
+
+			logger.Print("Info", LogLevel.INFO);
+			Assert.AreEqual(4, log.Count);
+
+			logger.Print("Info", LogLevel.INFO);
+			Assert.AreEqual(5, log.Count);
+
+			logger.Print("Info", LogLevel.INFO);
+			Assert.AreEqual(5, log.Count);
+
+			logger.Print("Info", LogLevel.INFO);
+			Assert.AreEqual(5, log.Count);
+
 		}
 	}
 }

@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>SwallowNest.Ashiato</RootNamespace>
+    <AssemblyName>SwallowNest.Ashiato</AssemblyName>
+  </PropertyGroup>
+
+</Project>

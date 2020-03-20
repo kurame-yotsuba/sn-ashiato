@@ -128,5 +128,17 @@ namespace SwallowNest.Ashiato.Tests
 			Assert.AreEqual(5, log.Count);
 
 		}
+
+		[TestMethod]
+		public void DebugではLogLevelはDebug固定()
+		{
+			List<LogLevel> debugLog = new List<LogLevel>();
+			logger.Printer += (_, logLevel) => debugLog.Add(logLevel);
+			logger.OutputLogLevel = LogLevel.DEBUG;
+
+			logger.Debug(sampleText);
+
+			Assert.AreEqual(LogLevel.DEBUG, debugLog[0]);
+		}
 	}
 }

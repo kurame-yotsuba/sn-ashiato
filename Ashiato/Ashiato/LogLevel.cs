@@ -10,6 +10,10 @@ namespace SwallowNest.Ashiato
 	public enum LogLevel
 	{
 		/// <summary>
+		/// デバッグ用のログ
+		/// </summary>
+		DEBUG,
+		/// <summary>
 		/// 重要度の低いログ
 		/// </summary>
 		TRACE,

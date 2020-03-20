@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,5 +52,12 @@ namespace SwallowNest.Ashiato
 				}
 			}
 		}
+
+		/// <summary>
+		/// デバッグビルドでのみ、ログを出力します。
+		/// </summary>
+		/// <param name="logText"></param>
+		[Conditional("DEBUG")]
+		public void Debug(string logText) => Print(logText, LogLevel.DEBUG);
 	}
 }

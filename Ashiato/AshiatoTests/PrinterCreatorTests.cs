@@ -29,8 +29,8 @@ namespace SwallowNest.Ashiato.Tests
 		[TestMethod()]
 		public void OneLinePrinterTest()
 		{
-			Logger.Printer += PrinterCreator.OneLinePrinter(logText => log.Add(logText));
-			Logger.OutputLogLevel = LogLevel.DEBUG;
+			Log.Printer += PrinterCreator.OneLinePrinter(logText => log.Add(logText));
+			Log.OutputLogLevel = LogLevel.DEBUG;
 
 			string nowStr = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
 			string[] logs = new[]{
@@ -38,8 +38,8 @@ namespace SwallowNest.Ashiato.Tests
 				$"{nowStr}  INFO > {sampleText}",
 			};
 
-			Logger.Debug(sampleText);
-			Logger.Print(sampleText, LogLevel.INFO);
+			Log.Debug(sampleText);
+			Log.Print(sampleText, LogLevel.INFO);
 
 			CollectionAssert.AreEqual(logs, log);
 		}

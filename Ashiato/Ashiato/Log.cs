@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SwallowNest.Ashiato
 {
-	public static class Logger
+	public static class Log
 	{
 		#region private member
 

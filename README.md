@@ -1,2 +1,2 @@
-# sn-ashiato
+# krm-ashiato
 .Net Core用のロギングライブラリ

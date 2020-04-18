@@ -15,7 +15,6 @@ namespace SwallowNest.Ashiato.Tests
 		/// ログの出力先
 		/// </summary>
 		List<string> log;
-		Logger logger;
 		readonly string sampleText = "sample text";
 
 		void SamplePrinter(string logText, LogLevel logLevel)
@@ -27,16 +26,15 @@ namespace SwallowNest.Ashiato.Tests
 		public void TestInitialize()
 		{
 			log = new List<string>();
-			logger = new Logger();
 		}
 
 		[TestMethod()]
 		public void 単純なログ出力()
 		{
-			logger.Printer += SamplePrinter;
+			Logger.Printer += SamplePrinter;
 			for(int i = 0; i < 10; i++)
 			{
-				logger.Print($"{sampleText} {i}");
+				Logger.Print($"{sampleText} {i}");
 			}
 
 			for(int i = 0; i < 10; i++)
@@ -52,7 +50,7 @@ namespace SwallowNest.Ashiato.Tests
 			int state = 0;
 
 			//並行実行で問題が起きそうな意図的な処理を登録
-			logger.Printer += (_, __) =>
+			Logger.Printer += (_, __) =>
 			{
 				//実行前の状態を取得して
 				int before = state;
@@ -61,7 +59,7 @@ namespace SwallowNest.Ashiato.Tests
 				//状態を変更する
 				state = before + 1;
 			};
-			Parallel.For(0, parallelNum, (_, __) => logger.Print(""));
+			Parallel.For(0, parallelNum, (_, __) => Logger.Print(""));
 
 			Assert.AreEqual(parallelNum, state);
 		}
@@ -72,10 +70,10 @@ namespace SwallowNest.Ashiato.Tests
 		[DataRow(LogLevel.ERROR)]
 		public void OutputLogLevel以上のlevelをPrintできるか(LogLevel level)
 		{
-			logger.Printer += SamplePrinter;
-			logger.OutputLogLevel = LogLevel.INFO;
+			Logger.Printer += SamplePrinter;
+			Logger.OutputLogLevel = LogLevel.INFO;
 
-			logger.Print(sampleText, level);
+			Logger.Print(sampleText, level);
 
 			Assert.AreEqual(sampleText, log[0]);
 		}
@@ -84,10 +82,10 @@ namespace SwallowNest.Ashiato.Tests
 		[DataRow(LogLevel.TRACE)]
 		public void OutputLogLevel未満のlevelはPrintしない(LogLevel level)
 		{
-			logger.Printer += SamplePrinter;
-			logger.OutputLogLevel = LogLevel.INFO;
+			Logger.Printer += SamplePrinter;
+			Logger.OutputLogLevel = LogLevel.INFO;
 
-			logger.Print(sampleText, level);
+			Logger.Print(sampleText, level);
 
 			Assert.AreEqual(0, log.Count);
 		}
@@ -103,28 +101,28 @@ namespace SwallowNest.Ashiato.Tests
 				}
 			}
 
-			logger.Printer += SamplePrinter;
-			logger.Reflesh += 要素が5つ以上だったら先頭のログを削除;
+			Logger.Printer += SamplePrinter;
+			Logger.Reflesh += 要素が5つ以上だったら先頭のログを削除;
 
-			logger.Print("Info", LogLevel.INFO);
+			Logger.Print("Info", LogLevel.INFO);
 			Assert.AreEqual(1, log.Count);
 
-			logger.Print("Info", LogLevel.INFO);
+			Logger.Print("Info", LogLevel.INFO);
 			Assert.AreEqual(2, log.Count);
 
-			logger.Print("Info", LogLevel.INFO);
+			Logger.Print("Info", LogLevel.INFO);
 			Assert.AreEqual(3, log.Count);
 
-			logger.Print("Info", LogLevel.INFO);
+			Logger.Print("Info", LogLevel.INFO);
 			Assert.AreEqual(4, log.Count);
 
-			logger.Print("Info", LogLevel.INFO);
+			Logger.Print("Info", LogLevel.INFO);
 			Assert.AreEqual(5, log.Count);
 
-			logger.Print("Info", LogLevel.INFO);
+			Logger.Print("Info", LogLevel.INFO);
 			Assert.AreEqual(5, log.Count);
 
-			logger.Print("Info", LogLevel.INFO);
+			Logger.Print("Info", LogLevel.INFO);
 			Assert.AreEqual(5, log.Count);
 
 		}
@@ -133,10 +131,10 @@ namespace SwallowNest.Ashiato.Tests
 		public void DebugではLogLevelはDebug固定()
 		{
 			List<LogLevel> debugLog = new List<LogLevel>();
-			logger.Printer += (_, logLevel) => debugLog.Add(logLevel);
-			logger.OutputLogLevel = LogLevel.DEBUG;
+			Logger.Printer += (_, logLevel) => debugLog.Add(logLevel);
+			Logger.OutputLogLevel = LogLevel.DEBUG;
 
-			logger.Debug(sampleText);
+			Logger.Debug(sampleText);
 
 			Assert.AreEqual(LogLevel.DEBUG, debugLog[0]);
 		}

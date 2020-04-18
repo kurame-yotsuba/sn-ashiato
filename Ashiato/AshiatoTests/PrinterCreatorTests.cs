@@ -13,7 +13,6 @@ namespace SwallowNest.Ashiato.Tests
 		/// ログの出力先
 		/// </summary>
 		List<string> log;
-		Logger logger;
 		readonly string sampleText = "sample text";
 
 		void SamplePrinter(string logText, LogLevel logLevel)
@@ -25,14 +24,13 @@ namespace SwallowNest.Ashiato.Tests
 		public void TestInitialize()
 		{
 			log = new List<string>();
-			logger = new Logger();
 		}
 
 		[TestMethod()]
 		public void OneLinePrinterTest()
 		{
-			logger.Printer += PrinterCreator.OneLinePrinter(logText => log.Add(logText));
-			logger.OutputLogLevel = LogLevel.DEBUG;
+			Logger.Printer += PrinterCreator.OneLinePrinter(logText => log.Add(logText));
+			Logger.OutputLogLevel = LogLevel.DEBUG;
 
 			string nowStr = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
 			string[] logs = new[]{
@@ -40,8 +38,8 @@ namespace SwallowNest.Ashiato.Tests
 				$"{nowStr}  INFO > {sampleText}",
 			};
 
-			logger.Debug(sampleText);
-			logger.Print(sampleText, LogLevel.INFO);
+			Logger.Debug(sampleText);
+			Logger.Print(sampleText, LogLevel.INFO);
 
 			CollectionAssert.AreEqual(logs, log);
 		}

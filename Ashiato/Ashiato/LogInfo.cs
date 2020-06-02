@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SwallowNest.Ashiato
 {
-	public class LogInfo
+	public struct LogInfo
 	{
 		public string Text { get; }
 		public LogLevel Level { get; }

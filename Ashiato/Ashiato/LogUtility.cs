@@ -37,6 +37,11 @@ namespace SwallowNest.Ashiato
 			};
 		}
 
+		/// <summary>
+		/// OneLinePrinterで出力されたログをLogInfoに変換します。
+		/// </summary>
+		/// <param name="lineText"></param>
+		/// <returns></returns>
 		public static LogInfo OneLineParse(string lineText)
 		{
 			if (OneLineTryParse(lineText, out LogInfo log))
@@ -49,6 +54,12 @@ namespace SwallowNest.Ashiato
 			}
 		}
 
+		/// <summary>
+		/// OneLinePrinterで出力されたログをLogInfoに変換します。
+		/// </summary>
+		/// <param name="lineText"></param>
+		/// <param name="log"></param>
+		/// <returns></returns>
 		public static bool OneLineTryParse(string lineText, out LogInfo log)
 		{
 			log = default;

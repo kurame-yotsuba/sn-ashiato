@@ -7,7 +7,7 @@ using System.Text;
 namespace SwallowNest.Ashiato.Tests
 {
 	[TestClass()]
-	public class PrinterCreatorTests
+	public class LogUtilityTests
 	{
 		/// <summary>
 		/// ログの出力先
@@ -29,7 +29,7 @@ namespace SwallowNest.Ashiato.Tests
 		[TestMethod()]
 		public void OneLinePrinterTest()
 		{
-			Log.Printer += PrinterCreator.OneLinePrinter(logText => log.Add(logText));
+			Log.Printer += LogUtility.OneLinePrinter(logText => log.Add(logText));
 			Log.OutputLogLevel = LogLevel.DEBUG;
 
 			string nowStr = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SwallowNest.Ashiato
 {
-	public static class PrinterCreator
+	public static class LogUtility
 	{
 		private static readonly string timeFormat = "yyyy/MM/dd HH:mm:ss";
 

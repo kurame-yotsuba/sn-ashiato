@@ -7,9 +7,8 @@ namespace SwallowNest.Ashiato
 	/// <summary>
 	/// 文字列とログレベルを受け取るイベントハンドラーを表す型です。
 	/// </summary>
-	/// <param name="logText"></param>
-	/// <param name="logLevel"></param>
-	public delegate void LogPrintHandler(string logText, LogLevel logLevel);
+	/// <param name="log"></param>
+	public delegate void LogPrintHandler(LogInfo log);
 
 	/// <summary>
 	/// ログのリフレッシュを行うイベントハンドラーを表す型です。
@@ -20,8 +19,7 @@ namespace SwallowNest.Ashiato
 	/// 文字列とログレベルを受け取って、
 	/// ログ用にフォーマットされた文字列を返す型です。
 	/// </summary>
-	/// <param name="logText"></param>
-	/// <param name="logLevel"></param>
+	/// <param name="log"></param>
 	/// <returns></returns>
-	public delegate string LogFormatter(string logText, LogLevel logLevel);
+	public delegate string LogFormatter(LogInfo log);
 }

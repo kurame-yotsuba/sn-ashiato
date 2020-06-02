@@ -48,7 +48,8 @@ namespace SwallowNest.Ashiato
 				lock (syncObject)
 				{
 					Reflesh?.Invoke();
-					Printer(logText, logLevel);
+					LogInfo log = new LogInfo(logText, logLevel, DateTime.Now);
+					Printer(log);
 				}
 			}
 		}

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SwallowNest.Ashiato.Tests
 {
-	[TestClass()]
+	[TestClass]
 	public class LogUtilityTests
 	{
 		/// <summary>
@@ -26,7 +26,7 @@ namespace SwallowNest.Ashiato.Tests
 			log = new List<string>();
 		}
 
-		[TestMethod()]
+		[TestMethod]
 		public void OneLinePrinterTest()
 		{
 			Log.Printer += LogUtility.OneLinePrinter(logText => log.Add(logText));

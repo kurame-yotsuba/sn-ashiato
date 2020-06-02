@@ -26,12 +26,12 @@ namespace SwallowNest.Ashiato
 			//2018/04/01 12:00:00 DEBUG > logText
 			//みたいな感じになる
 
-			return (logText, logLevel) =>
+			return log =>
 			{
 				string nowStr = DateTime.Now.ToString(timeFormat);
-				string lvlStr = logLevel.ToString().PadLeft(MaxLengthOfLogLevelText);
+				string lvlStr = log.Level.ToString().PadLeft(MaxLengthOfLogLevelText);
 
-				string result = $"{nowStr} {lvlStr} > {logText}";
+				string result = $"{nowStr} {lvlStr} > {log.Text}";
 
 				printer(result);
 			};

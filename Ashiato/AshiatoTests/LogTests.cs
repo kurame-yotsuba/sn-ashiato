@@ -17,9 +17,9 @@ namespace SwallowNest.Ashiato.Tests
 		List<string> log;
 		readonly string sampleText = "sample text";
 
-		void SamplePrinter(string logText, LogLevel logLevel)
+		void SamplePrinter(LogInfo log)
 		{
-			log.Add(logText);
+			this.log.Add(log.Text);
 		}
 
 		[TestInitialize]
@@ -50,7 +50,7 @@ namespace SwallowNest.Ashiato.Tests
 			int state = 0;
 
 			//並行実行で問題が起きそうな意図的な処理を登録
-			Log.Printer += (_, __) =>
+			Log.Printer += _ =>
 			{
 				//実行前の状態を取得して
 				int before = state;
@@ -131,7 +131,7 @@ namespace SwallowNest.Ashiato.Tests
 		public void DebugではLogLevelはDebug固定()
 		{
 			List<LogLevel> debugLog = new List<LogLevel>();
-			Log.Printer += (_, logLevel) => debugLog.Add(logLevel);
+			Log.Printer += log => debugLog.Add(log.Level);
 			Log.OutputLogLevel = LogLevel.DEBUG;
 
 			Log.Debug(sampleText);

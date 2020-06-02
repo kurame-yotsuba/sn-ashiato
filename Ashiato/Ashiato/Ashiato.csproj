@@ -1,10 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>SwallowNest.Ashiato</RootNamespace>
     <AssemblyName>SwallowNest.Ashiato</AssemblyName>
     <Nullable>enable</Nullable>
+    <Version>0.1.0</Version>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Authors>Kurame</Authors>
+    <Product>Ashiato</Product>
+    <Description>Logging library</Description>
+    <Copyright>https://github.com/kurame-yotsuba/sn-ashiato/blob/master/LICENSE</Copyright>
+    <PackageProjectUrl>https://github.com/kurame-yotsuba/sn-ashiato</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/kurame-yotsuba/sn-ashiato</RepositoryUrl>
+    <PackageTags>log</PackageTags>
   </PropertyGroup>
 
 </Project>

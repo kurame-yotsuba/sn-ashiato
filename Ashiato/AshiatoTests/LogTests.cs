@@ -39,7 +39,7 @@ namespace SwallowNest.Ashiato.Tests
 
 			for(int i = 0; i < 10; i++)
 			{
-				Assert.AreEqual($"{sampleText} {i}", log[i]);
+				log[i].Is($"{sampleText} {i}");
 			}
 		}
 
@@ -61,7 +61,7 @@ namespace SwallowNest.Ashiato.Tests
 			};
 			Parallel.For(0, parallelNum, (_, __) => Log.Print(""));
 
-			Assert.AreEqual(parallelNum, state);
+			state.Is(parallelNum);
 		}
 
 		[DataTestMethod]
@@ -75,7 +75,7 @@ namespace SwallowNest.Ashiato.Tests
 
 			Log.Print(sampleText, level);
 
-			Assert.AreEqual(sampleText, log[0]);
+			log[0].Is(sampleText);
 		}
 
 		[DataTestMethod]
@@ -87,7 +87,7 @@ namespace SwallowNest.Ashiato.Tests
 
 			Log.Print(sampleText, level);
 
-			Assert.AreEqual(0, log.Count);
+			log.Count.Is(0);
 		}
 
 		[TestMethod]
@@ -105,26 +105,25 @@ namespace SwallowNest.Ashiato.Tests
 			Log.Reflesh += 要素が5つ以上だったら先頭のログを削除;
 
 			Log.Print("Info", LogLevel.INFO);
-			Assert.AreEqual(1, log.Count);
+			log.Count.Is(1);
 
 			Log.Print("Info", LogLevel.INFO);
-			Assert.AreEqual(2, log.Count);
+			log.Count.Is(2);
 
 			Log.Print("Info", LogLevel.INFO);
-			Assert.AreEqual(3, log.Count);
+			log.Count.Is(3);
 
 			Log.Print("Info", LogLevel.INFO);
-			Assert.AreEqual(4, log.Count);
+			log.Count.Is(4);
 
 			Log.Print("Info", LogLevel.INFO);
-			Assert.AreEqual(5, log.Count);
+			log.Count.Is(5);
 
 			Log.Print("Info", LogLevel.INFO);
-			Assert.AreEqual(5, log.Count);
+			log.Count.Is(5);
 
 			Log.Print("Info", LogLevel.INFO);
-			Assert.AreEqual(5, log.Count);
-
+			log.Count.Is(5);
 		}
 
 		[TestMethod]
@@ -136,7 +135,7 @@ namespace SwallowNest.Ashiato.Tests
 
 			Log.Debug(sampleText);
 
-			Assert.AreEqual(LogLevel.DEBUG, debugLog[0]);
+			debugLog[0].Is(LogLevel.DEBUG);
 		}
 	}
 }

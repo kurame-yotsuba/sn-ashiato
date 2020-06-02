@@ -42,7 +42,7 @@ namespace SwallowNest.Ashiato.Tests
 			Log.Debug(sampleText);
 			Log.Print(sampleText, LogLevel.INFO);
 
-			CollectionAssert.AreEqual(logs, log);
+			log.Is(logs);
 		}
 
 		[TestMethod]
@@ -61,9 +61,9 @@ namespace SwallowNest.Ashiato.Tests
 			Log.Print(logText, logLevel);
 			LogInfo	logInfo = LogUtility.OneLineParse(log[0]);
 
-			Assert.AreEqual(logText, logInfo.Text);
-			Assert.AreEqual(logLevel, logInfo.Level);
-			Assert.AreEqual(nowStr, logInfo.Time.ToString("yyyy/MM/dd HH:mm:ss"));
+			logInfo.Text.Is(logText);
+			logInfo.Level.Is(logLevel);
+			logInfo.Time.ToString("yyyy/MM/dd HH:mm:ss").Is(nowStr);
 		}
 	}
 }

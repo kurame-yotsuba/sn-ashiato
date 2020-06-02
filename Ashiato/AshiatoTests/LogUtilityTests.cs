@@ -65,5 +65,39 @@ namespace SwallowNest.Ashiato.Tests
 			logInfo.Level.Is(logLevel);
 			logInfo.Time.ToString("yyyy/MM/dd HH:mm:ss").Is(nowStr);
 		}
+
+		[TestMethod]
+		public void OneLineParseで不正なフォーマットは例外()
+		{
+			Log.Printer += LogUtility.OneLinePrinter(logText => log.Add(logText));
+			Log.OutputLogLevel = LogLevel.DEBUG;
+
+			AssertEx.Throws<FormatException>(() =>
+			{
+				LogInfo logInfo = LogUtility.OneLineParse("sample");
+			});
+		}
+
+		[TestMethod]
+		public void OneLineTryParseで不正なフォーマットはfalse()
+		{
+			Log.Printer += LogUtility.OneLinePrinter(logText => log.Add(logText));
+			Log.OutputLogLevel = LogLevel.DEBUG;
+
+			string nowStr = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+			string logText = "sample";
+			LogLevel logLevel = LogLevel.INFO;
+			Log.Print(logText, logLevel);
+
+			bool success = LogUtility.OneLineTryParse(log[0], out LogInfo logInfo);
+			success.IsTrue();
+			logInfo.Text.Is(logText);
+			logInfo.Level.Is(logLevel);
+			logInfo.Time.ToString("yyyy/MM/dd HH:mm:ss").Is(nowStr);
+
+			bool success2 = LogUtility.OneLineTryParse("", out LogInfo logInfo2);
+			success2.IsFalse();
+			logInfo2.Is(default(LogInfo));
+		}
 	}
 }

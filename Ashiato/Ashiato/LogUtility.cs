@@ -39,19 +39,36 @@ namespace SwallowNest.Ashiato
 
 		public static LogInfo OneLineParse(string lineText)
 		{
-			try
+			if (OneLineTryParse(lineText, out LogInfo log))
 			{
-				string[] textList = lineText.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-				DateTime time = DateTime.Parse($"{textList[0]} {textList[1]}");
-				LogLevel level = Enum.Parse<LogLevel>(textList[2]);
-				string text = textList[4];
-
-				return new LogInfo(text, level, time);
+				return log;
 			}
-			catch (Exception)
+			else
 			{
 				throw new FormatException("不正なフォーマットのOneLineLogです。");
 			}
+		}
+
+		public static bool OneLineTryParse(string lineText, out LogInfo log)
+		{
+			log = default;
+			bool fail;
+			string[] textList = lineText.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+			fail = textList.Length != 5;
+			if (fail) { return false; }
+
+			fail = !DateTime.TryParse($"{textList[0]} {textList[1]}", out DateTime time);
+			if (fail) { return false; }
+
+
+			fail = !Enum.TryParse(textList[2], out LogLevel level);
+			if (fail) { return false; }
+
+			string text = textList[4];
+
+			log = new LogInfo(text, level, time);
+			return true;
 		}
 	}
 }

@@ -36,5 +36,22 @@ namespace SwallowNest.Ashiato
 				printer(result);
 			};
 		}
+
+		public static LogInfo OneLineParse(string lineText)
+		{
+			try
+			{
+				string[] textList = lineText.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+				DateTime time = DateTime.Parse($"{textList[0]} {textList[1]}");
+				LogLevel level = Enum.Parse<LogLevel>(textList[2]);
+				string text = textList[4];
+
+				return new LogInfo(text, level, time);
+			}
+			catch (Exception)
+			{
+				throw new FormatException("不正なフォーマットのOneLineLogです。");
+			}
+		}
 	}
 }

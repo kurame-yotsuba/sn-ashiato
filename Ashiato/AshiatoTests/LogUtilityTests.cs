@@ -2,6 +2,7 @@
 using SwallowNest.Ashiato;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SwallowNest.Ashiato.Tests
@@ -42,6 +43,27 @@ namespace SwallowNest.Ashiato.Tests
 			Log.Print(sampleText, LogLevel.INFO);
 
 			CollectionAssert.AreEqual(logs, log);
+		}
+
+		[TestMethod]
+		[DataRow(LogLevel.DEBUG)]
+		[DataRow(LogLevel.TRACE)]
+		[DataRow(LogLevel.INFO)]
+		[DataRow(LogLevel.WARN)]
+		[DataRow(LogLevel.ERROR)]
+		public void OneLineParseTest(LogLevel logLevel)
+		{
+			Log.Printer += LogUtility.OneLinePrinter(logText => log.Add(logText));
+			Log.OutputLogLevel = LogLevel.DEBUG;
+
+			string nowStr = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+			string logText = "sample";
+			Log.Print(logText, logLevel);
+			LogInfo	logInfo = LogUtility.OneLineParse(log[0]);
+
+			Assert.AreEqual(logText, logInfo.Text);
+			Assert.AreEqual(logLevel, logInfo.Level);
+			Assert.AreEqual(nowStr, logInfo.Time.ToString("yyyy/MM/dd HH:mm:ss"));
 		}
 	}
 }

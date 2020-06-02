@@ -28,10 +28,10 @@ namespace SwallowNest.Ashiato
 
 			return (logText, logLevel) =>
 			{
-				var nowStr = DateTime.Now.ToString(timeFormat);
-				var lvlStr = $" {logLevel.ToString().PadLeft(MaxLengthOfLogLevelText)} > ";
+				string nowStr = DateTime.Now.ToString(timeFormat);
+				string lvlStr = logLevel.ToString().PadLeft(MaxLengthOfLogLevelText);
 
-				var result = nowStr + lvlStr + logText;
+				string result = $"{nowStr} {lvlStr} > {logText}";
 
 				printer(result);
 			};

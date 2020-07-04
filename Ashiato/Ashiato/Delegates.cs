@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SwallowNest.Ashiato
+﻿namespace SwallowNest.Ashiato
 {
 	/// <summary>
 	/// 文字列とログレベルを受け取るイベントハンドラーを表す型です。

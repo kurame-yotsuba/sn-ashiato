@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SwallowNest.Ashiato
+﻿namespace SwallowNest.Ashiato
 {
 	/// <summary>
 	/// 表示するログの詳しさを表します。

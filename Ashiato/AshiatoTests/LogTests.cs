@@ -1,9 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SwallowNest.Ashiato;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SwallowNest.Ashiato.Tests
@@ -32,12 +28,12 @@ namespace SwallowNest.Ashiato.Tests
 		public void 単純なログ出力()
 		{
 			Log.Printer += SamplePrinter;
-			for(int i = 0; i < 10; i++)
+			for (int i = 0; i < 10; i++)
 			{
 				Log.Print($"{sampleText} {i}");
 			}
 
-			for(int i = 0; i < 10; i++)
+			for (int i = 0; i < 10; i++)
 			{
 				log[i].Is($"{sampleText} {i}");
 			}

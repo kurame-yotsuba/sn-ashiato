@@ -1,9 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SwallowNest.Ashiato;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace SwallowNest.Ashiato.Tests
 {
@@ -59,7 +57,7 @@ namespace SwallowNest.Ashiato.Tests
 			string nowStr = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
 			string logText = "sample";
 			Log.Print(logText, logLevel);
-			LogInfo	logInfo = LogUtility.OneLineParse(log[0]);
+			LogInfo logInfo = LogUtility.OneLineParse(log[0]);
 
 			logInfo.Text.Is(logText);
 			logInfo.Level.Is(logLevel);
@@ -98,6 +96,23 @@ namespace SwallowNest.Ashiato.Tests
 			bool success2 = LogUtility.OneLineTryParse("", out LogInfo logInfo2);
 			success2.IsFalse();
 			logInfo2.Is(default(LogInfo));
+		}
+
+		[TestMethod]
+		public void OneLine用のRefleshハンドラ作成()
+		{
+			Log.Printer += LogUtility.OneLinePrinter(logText => log.Add(logText));
+			Log.OutputLogLevel = LogLevel.DEBUG;
+			Log.Reflesh += LogUtility.OneLineRotateReflesh(() => log, TimeSpan.FromSeconds(1), log.Clear, x => log.Add(x));
+
+			string logText = "sample";
+			LogLevel logLevel = LogLevel.INFO;
+			Log.Print(logText, logLevel);
+			log.Count.Is(1);
+
+			Task.Delay(2000).Wait();
+			Log.Print(logText, logLevel);
+			log.Count.Is(1, "さっきのログは消えているはず");
 		}
 	}
 }

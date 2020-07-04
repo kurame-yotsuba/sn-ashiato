@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SwallowNest.Ashiato
 {
@@ -18,8 +17,10 @@ namespace SwallowNest.Ashiato
 
 		// 各種range
 		private static readonly Range timeRange = 0..timeFormat.Length;
+
 		private static readonly Range levelRange =
 			(timeFormat.Length + 1)..(timeFormat.Length + 1 + MaxLengthOfLogLevelText);
+
 		private static readonly Range textRange = (timeFormat.Length + 1 + MaxLengthOfLogLevelText + prompt.Length)..;
 
 		/// <summary>
@@ -87,6 +88,27 @@ namespace SwallowNest.Ashiato
 
 			log = new LogInfo(text, level, time);
 			return true;
+		}
+
+		public static LogRefleshHandler OneLineRotateReflesh(
+			Func<IEnumerable<string>> logReader,
+			TimeSpan removeSpan,
+			Action clear)
+		{
+			return () =>
+			{
+				List<LogInfo> logList = new List<LogInfo>();
+				foreach (string lineText in logReader())
+				{
+					if (OneLineTryParse(lineText, out LogInfo log)
+						&& (DateTime.Now - log.Time) < removeSpan)
+					{
+						logList.Add(log);
+					}
+				}
+
+				clear();
+			};
 		}
 	}
 }

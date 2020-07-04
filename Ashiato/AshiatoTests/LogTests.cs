@@ -10,8 +10,9 @@ namespace SwallowNest.Ashiato.Tests
 		/// <summary>
 		/// ログの出力先
 		/// </summary>
-		List<string> log;
-		readonly string sampleText = "sample text";
+		private List<string> log;
+
+		private readonly string sampleText = "sample text";
 
 		void SamplePrinter(LogInfo log)
 		{
@@ -30,7 +31,7 @@ namespace SwallowNest.Ashiato.Tests
 			Log.Printer += SamplePrinter;
 			for (int i = 0; i < 10; i++)
 			{
-				Log.Print($"{sampleText} {i}");
+				Log.Info($"{sampleText} {i}");
 			}
 
 			for (int i = 0; i < 10; i++)
@@ -55,33 +56,35 @@ namespace SwallowNest.Ashiato.Tests
 				//状態を変更する
 				state = before + 1;
 			};
-			Parallel.For(0, parallelNum, (_, __) => Log.Print(""));
+			Parallel.For(0, parallelNum, (_, __) => Log.Info(""));
 
 			state.Is(parallelNum);
 		}
 
 		[DataTestMethod]
-		[DataRow(LogLevel.INFO)]
-		[DataRow(LogLevel.WARN)]
-		[DataRow(LogLevel.ERROR)]
-		public void OutputLogLevel以上のlevelをPrintできるか(LogLevel level)
+		public void OutputLogLevel以上のLevelをPrint()
 		{
 			Log.Printer += SamplePrinter;
 			Log.OutputLogLevel = LogLevel.INFO;
 
-			Log.Print(sampleText, level);
-
+			Log.Info(sampleText);
 			log[0].Is(sampleText);
+
+			Log.Warn(sampleText);
+			log[1].Is(sampleText);
+
+			Log.Error(sampleText);
+			log[2].Is(sampleText);
 		}
 
 		[DataTestMethod]
-		[DataRow(LogLevel.TRACE)]
-		public void OutputLogLevel未満のlevelはPrintしない(LogLevel level)
+		public void OutputLogLevel未満のLevelはPrintしない()
 		{
 			Log.Printer += SamplePrinter;
 			Log.OutputLogLevel = LogLevel.INFO;
 
-			Log.Print(sampleText, level);
+			Log.Trace(sampleText);
+			Log.Debug(sampleText);
 
 			log.Count.Is(0);
 		}
@@ -100,38 +103,48 @@ namespace SwallowNest.Ashiato.Tests
 			Log.Printer += SamplePrinter;
 			Log.Reflesh += 要素が5つ以上だったら先頭のログを削除;
 
-			Log.Print("Info", LogLevel.INFO);
+			Log.Info("");
 			log.Count.Is(1);
 
-			Log.Print("Info", LogLevel.INFO);
+			Log.Info("");
 			log.Count.Is(2);
 
-			Log.Print("Info", LogLevel.INFO);
+			Log.Info("");
 			log.Count.Is(3);
 
-			Log.Print("Info", LogLevel.INFO);
+			Log.Info("");
 			log.Count.Is(4);
 
-			Log.Print("Info", LogLevel.INFO);
+			// これ以上はログが増えない
+			Log.Info("");
 			log.Count.Is(5);
 
-			Log.Print("Info", LogLevel.INFO);
+			Log.Info("");
 			log.Count.Is(5);
 
-			Log.Print("Info", LogLevel.INFO);
+			Log.Info("");
 			log.Count.Is(5);
 		}
 
 		[TestMethod]
-		public void DebugではLogLevelはDebug固定()
+		public void DebugのLogLevelはDebug()
 		{
 			List<LogLevel> debugLog = new List<LogLevel>();
 			Log.Printer += log => debugLog.Add(log.Level);
-			Log.OutputLogLevel = LogLevel.DEBUG;
+			Log.OutputLogLevel = LogLevel.TRACE;
 
-			Log.Debug(sampleText);
+			Log.Trace("");
+			Log.Debug("");
+			Log.Info("");
+			Log.Warn("");
+			Log.Error("");
 
-			debugLog[0].Is(LogLevel.DEBUG);
+			debugLog.Is(
+				LogLevel.TRACE,
+				LogLevel.DEBUG,
+				LogLevel.INFO,
+				LogLevel.WARN,
+				LogLevel.ERROR);
 		}
 	}
 }

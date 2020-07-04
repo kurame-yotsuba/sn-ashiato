@@ -12,29 +12,12 @@ namespace SwallowNest.Ashiato
 		/// </summary>
 		private static readonly object syncObject = new object();
 
-		#endregion
-
-		/// <summary>
-		/// 出力するログのレベル
-		/// </summary>
-		public static LogLevel OutputLogLevel { set; get; } = LogLevel.TRACE;
-
-		/// <summary>
-		/// ログ出力のイベントハンドラー
-		/// </summary>
-		public static event LogPrintHandler? Printer;
-
-		/// <summary>
-		/// ログ履歴をリフレッシュするイベントハンドラー
-		/// </summary>
-		public static event LogRefleshHandler? Reflesh;
-
 		/// <summary>
 		/// ログを出力します。
 		/// </summary>
 		/// <param name="logText"></param>
 		/// <param name="logLevel"></param>
-		public static void Print(string logText, LogLevel logLevel = LogLevel.INFO)
+		static void Print(string logText, LogLevel logLevel)
 		{
 			if (Printer is null) { return; }
 
@@ -50,11 +33,57 @@ namespace SwallowNest.Ashiato
 			}
 		}
 
+		#endregion private member
+
+		#region public member
+
 		/// <summary>
-		/// デバッグビルドでのみ、ログを出力します。
+		/// 出力するログのレベル
+		/// </summary>
+		public static LogLevel OutputLogLevel { set; get; } = LogLevel.INFO;
+
+		/// <summary>
+		/// ログ出力のイベントハンドラー
+		/// </summary>
+		public static event LogPrintHandler? Printer;
+
+		/// <summary>
+		/// ログ履歴をリフレッシュするイベントハンドラー
+		/// </summary>
+		public static event LogRefreshHandler? Reflesh;
+
+		/// <summary>
+		/// TRACE定数が定義されているときのみ、ログを出力します。
 		/// </summary>
 		/// <param name="logText"></param>
-		[Conditional("DEBUG")]
+		[Conditional(nameof(LogLevel.TRACE))]
+		public static void Trace(string logText) => Print(logText, LogLevel.TRACE);
+
+		/// <summary>
+		/// DEBUG定数が定義されているときのみ、ログを出力します。
+		/// </summary>
+		/// <param name="logText"></param>
+		[Conditional(nameof(LogLevel.DEBUG))]
 		public static void Debug(string logText) => Print(logText, LogLevel.DEBUG);
+
+		/// <summary>
+		/// 情報ログを出力します。
+		/// </summary>
+		/// <param name="logText"></param>
+		public static void Info(string logText) => Print(logText, LogLevel.INFO);
+
+		/// <summary>
+		/// 警告ログを出力します。
+		/// </summary>
+		/// <param name="logText"></param>
+		public static void Warn(string logText) => Print(logText, LogLevel.WARN);
+
+		/// <summary>
+		/// エラーログを出力します。
+		/// </summary>
+		/// <param name="logText"></param>
+		public static void Error(string logText) => Print(logText, LogLevel.ERROR);
+
+		#endregion public member
 	}
 }

@@ -9,21 +9,21 @@
 
 /* -- Tutorial --
  * | at first, include this file on MSTest Project.
- * 
+ *
  * | three example, "Is" overloads.
- * 
+ *
  * // This same as Assert.AreEqual(25, Math.Pow(5, 2))
  * Math.Pow(5, 2).Is(25);
- * 
+ *
  * // This same as Assert.IsTrue("foobar".StartsWith("foo") && "foobar".EndWith("bar"))
  * "foobar".Is(s => s.StartsWith("foo") && s.EndsWith("bar"));
- * 
+ *
  * // This same as CollectionAssert.AreEqual(Enumerable.Range(1,5), new[]{1, 2, 3, 4, 5})
  * Enumerable.Range(1, 5).Is(1, 2, 3, 4, 5);
- * 
+ *
  * | CollectionAssert
  * | if you want to use CollectionAssert Methods then use Linq to Objects and Is
- * 
+ *
  * var array = new[] { 1, 3, 7, 8 };
  * array.Count().Is(4);
  * array.Contains(8).IsTrue(); // IsTrue() == Is(true)
@@ -33,7 +33,7 @@
  * array.OrderBy(x => x).Is(array); // IsOrdered
  *
  * | Other Assertions
- * 
+ *
  * // Null Assertions
  * Object obj = null;
  * obj.IsNull();             // Assert.IsNull(obj)
@@ -51,9 +51,9 @@
  * // Type Assertion
  * "foobar".IsInstanceOf<string>(); // Assert.IsInstanceOfType
  * (999).IsNotInstanceOf<double>(); // Assert.IsNotInstanceOfType
- * 
+ *
  * | Advanced Collection Assertion
- * 
+ *
  * var lower = new[] { "a", "b", "c" };
  * var upper = new[] { "A", "B", "C" };
  *
@@ -63,59 +63,59 @@
  *
  * // or you can use Linq to Objects - SequenceEqual
  * lower.SequenceEqual(upper, StringComparer.InvariantCultureIgnoreCase).Is(true);
- * 
+ *
  * | StructuralEqual
- * 
+ *
  * class MyClass
  * {
  *     public int IntProp { get; set; }
  *     public string StrField;
  * }
- * 
+ *
  * var mc1 = new MyClass() { IntProp = 10, StrField = "foo" };
  * var mc2 = new MyClass() { IntProp = 10, StrField = "foo" };
- * 
+ *
  * mc1.IsStructuralEqual(mc2); // deep recursive value equality compare
- * 
+ *
  * mc1.IntProp = 20;
  * mc1.IsNotStructuralEqual(mc2);
- * 
+ *
  * | DynamicAccessor
- * 
+ *
  * // AsDynamic convert to "dynamic" that can call private method/property/field/indexer.
- * 
+ *
  * // a class and private field/property/method.
  * public class PrivateMock
  * {
  *     private string privateField = "homu";
- * 
+ *
  *     private string PrivateProperty
  *     {
  *         get { return privateField + privateField; }
  *         set { privateField = value; }
  *     }
- * 
+ *
  *     private string PrivateMethod(int count)
  *     {
  *         return string.Join("", Enumerable.Repeat(privateField, count));
  *     }
  * }
- * 
+ *
  * // call private property.
  * var actual = new PrivateMock().AsDynamic().PrivateProperty;
  * Assert.AreEqual("homuhomu", actual);
- * 
+ *
  * // dynamic can't invoke extension methods.
  * // if you want to invoke "Is" then cast type.
  * (new PrivateMock().AsDynamic().PrivateMethod(3) as string).Is("homuhomuhomu");
- * 
+ *
  * // set value
  * var mock = new PrivateMock().AsDynamic();
  * mock.PrivateProperty = "mogumogu";
  * (mock.privateField as string).Is("mogumogu");
- * 
+ *
  * | Exception Test
- * 
+ *
  * // Exception Test(alternative of ExpectedExceptionAttribute)
  * // AssertEx.Throws does not allow derived type
  * // AssertEx.Catch allows derived type
@@ -123,28 +123,28 @@
  * AssertEx.Throws<ArgumentNullException>(() => "foo".StartsWith(null));
  * AssertEx.Catch<Exception>(() => "foo".StartsWith(null));
  * AssertEx.ThrowsContractException(() => // contract method //);
- * 
+ *
  * // return value is occured exception
  * var ex = AssertEx.Throws<InvalidOperationException>(() =>
  * {
  *     throw new InvalidOperationException("foobar operation");
  * });
  * ex.Message.Is(s => s.Contains("foobar")); // additional exception assertion
- * 
+ *
  * // must not throw any exceptions
  * AssertEx.DoesNotThrow(() =>
  * {
  *     // code
  * });
- * 
+ *
  * | Parameterized Test
  * | TestCase takes parameters and send to TestContext's Extension Method "Run".
- * 
+ *
  * [TestClass]
  * public class UnitTest
  * {
  *     public TestContext TestContext { get; set; }
- * 
+ *
  *     [TestMethod]
  *     [TestCase(1, 2, 3)]
  *     [TestCase(10, 20, 30)]
@@ -158,10 +158,10 @@
  *         });
  *     }
  * }
- * 
+ *
  * | TestCaseSource
  * | TestCaseSource can take static field/property that types is only object[][].
- * 
+ *
  * [TestMethod]
  * [TestCaseSource("toaruSource")]
  * public void TestTestCaseSource()
@@ -171,14 +171,14 @@
  *         string.Concat(x, y).Is(z);
  *     });
  * }
- * 
+ *
  * public static object[] toaruSource = new[]
  * {
  *     new object[] {1, 1, "11"},
  *     new object[] {5, 3, "53"},
  *     new object[] {9, 4, "94"}
  * };
- * 
+ *
  * -- more details see project home --*/
 
 using System;
@@ -428,7 +428,7 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting
 		/// <summary>EqualityComparison to IComparer Converter for CollectionAssert</summary>
 		private class ComparisonComparer<T> : IComparer
 		{
-			readonly Func<T, T, bool> comparison;
+			private readonly Func<T, T, bool> comparison;
 
 			public ComparisonComparer(Func<T, T, bool> comparison)
 			{
@@ -616,7 +616,7 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting
 			public IEnumerable<string> Names;
 		}
 
-		#endregion
+		#endregion StructuralEqual
 
 		#region DynamicAccessor
 
@@ -810,14 +810,14 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting
 			}
 		}
 
-		#endregion
+		#endregion DynamicAccessor
 
 		#region ExpressionDumper
 
 		private class ExpressionDumper<T> : ExpressionVisitor
 		{
-			ParameterExpression param;
-			T target;
+			private ParameterExpression param;
+			private T target;
 
 			public Dictionary<string, object> Members { get; private set; }
 
@@ -840,10 +840,10 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting
 			}
 		}
 
-		#endregion
+		#endregion ExpressionDumper
 	}
 
-	#endregion
+	#endregion Extensions
 
 	#region TestCase
 
@@ -1211,5 +1211,5 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting
 		}
 	}
 
-	#endregion
+	#endregion TestCase
 }

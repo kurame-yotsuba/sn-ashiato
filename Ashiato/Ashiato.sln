@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ashiato", "Ashiato\Ashiato.csproj", "{9DAF3074-9A63-4808-8655-4FF79F046042}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ashiato", "Ashiato\Ashiato.csproj", "{9DAF3074-9A63-4808-8655-4FF79F046042}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AshiatoTests", "AshiatoTests\AshiatoTests.csproj", "{81CCDF10-8C62-4E1A-9E5D-14D1E4085E09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AshiatoTests", "AshiatoTests\AshiatoTests.csproj", "{81CCDF10-8C62-4E1A-9E5D-14D1E4085E09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ashiato.Example", "Ashiato.Example\Ashiato.Example.csproj", "{235EDD9E-4403-4CC1-A778-B700BE62E300}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{81CCDF10-8C62-4E1A-9E5D-14D1E4085E09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81CCDF10-8C62-4E1A-9E5D-14D1E4085E09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81CCDF10-8C62-4E1A-9E5D-14D1E4085E09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{235EDD9E-4403-4CC1-A778-B700BE62E300}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{235EDD9E-4403-4CC1-A778-B700BE62E300}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{235EDD9E-4403-4CC1-A778-B700BE62E300}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{235EDD9E-4403-4CC1-A778-B700BE62E300}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

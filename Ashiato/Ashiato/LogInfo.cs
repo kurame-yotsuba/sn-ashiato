@@ -2,7 +2,7 @@
 
 namespace SwallowNest.Ashiato
 {
-	public struct LogInfo
+	public readonly struct LogInfo
 	{
 		public string Text { get; }
 		public LogLevel Level { get; }

@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <RootNamespace>SwallowNest.Bluewell</RootNamespace>
     <AssemblyName>SwallowNest.Bluewell</AssemblyName>
-    <Version>0.2.0</Version>
+    <Version>0.3.0</Version>
     <Authors>kurame</Authors>
     <Product>SwallowNest.Bluewell</Product>
     <Description>.NET 用の簡易的なロギングライブラリ</Description>

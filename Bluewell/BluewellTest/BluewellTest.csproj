@@ -2,12 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-
     <IsPackable>false</IsPackable>
-
     <RootNamespace>SwallowNest.Ashiato.Tests</RootNamespace>
-
     <AssemblyName>SwallowNest.AshiatoTests</AssemblyName>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

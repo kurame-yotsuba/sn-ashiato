@@ -2,17 +2,31 @@
 
 namespace SwallowNest.Bluewell
 {
-	public readonly struct LogInfo
-	{
-		public string Text { get; }
-		public LogLevel Level { get; }
-		public DateTime Time { get; }
+    /// <summary>
+    /// ログの情報をまとめた構造体
+    /// </summary>
+    public readonly struct LogInfo
+    {
+        /// <summary>
+        /// ログテキスト
+        /// </summary>
+        public string Text { get; }
 
-		internal LogInfo(string text, LogLevel level, DateTime time)
-		{
-			Text = text;
-			Level = level;
-			Time = time;
-		}
-	}
+        /// <summary>
+        /// ログレベル
+        /// </summary>
+        public LogLevel Level { get; }
+
+        /// <summary>
+        /// ログを出力した時刻
+        /// </summary>
+        public DateTime Time { get; }
+
+        internal LogInfo(string text, LogLevel level, DateTime time)
+        {
+            Text = text;
+            Level = level;
+            Time = time;
+        }
+    }
 }

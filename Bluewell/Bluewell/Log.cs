@@ -10,7 +10,7 @@ namespace SwallowNest.Bluewell
 		/// <summary>
 		/// 排他制御用のオブジェクト
 		/// </summary>
-		private static readonly object syncObject = new object();
+		private static readonly object syncObject = new();
 
 		/// <summary>
 		/// ログを出力します。
@@ -40,30 +40,30 @@ namespace SwallowNest.Bluewell
 		/// <summary>
 		/// 出力するログのレベル
 		/// </summary>
-		public static LogLevel OutputLogLevel { set; get; } = LogLevel.INFO;
+		public static LogLevel OutputLogLevel { get; set; } = LogLevel.INFO;
 
 		/// <summary>
 		/// ログ出力のイベントハンドラー
 		/// </summary>
-		public static event LogPrintHandler? Printer;
+		public static event Action<LogInfo>? Printer;
 
 		/// <summary>
 		/// ログ履歴をリフレッシュするイベントハンドラー
 		/// </summary>
-		public static event LogRefreshHandler? Reflesh;
+		public static event Action? Reflesh;
 
 		/// <summary>
 		/// TRACE定数が定義されているときのみ、ログを出力します。
 		/// </summary>
 		/// <param name="logText"></param>
-		[Conditional(nameof(LogLevel.TRACE))]
+		[Conditional("TRACE")]
 		public static void Trace(string logText) => Print(logText, LogLevel.TRACE);
 
 		/// <summary>
 		/// DEBUG定数が定義されているときのみ、ログを出力します。
 		/// </summary>
 		/// <param name="logText"></param>
-		[Conditional(nameof(LogLevel.DEBUG))]
+		[Conditional("DEBUG")]
 		public static void Debug(string logText) => Print(logText, LogLevel.DEBUG);
 
 		/// <summary>

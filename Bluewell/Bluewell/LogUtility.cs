@@ -20,7 +20,7 @@ namespace SwallowNest.Bluewell
 		/// </summary>
 		/// <param name="printer"></param>
 		/// <returns></returns>
-		public static LogPrintHandler OneLinePrinter(Action<string> printer)
+		public static Action<LogInfo> OneLinePrinter(Action<string> printer)
 		{
 			//2018/04/01 12:00:00  INFO > logText
 			//2018/04/01 12:00:00 DEBUG > logText

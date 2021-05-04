@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SwallowNest.Ashiato.Tests
+namespace SwallowNest.Bluewell.Tests
 {
 	[TestClass]
 	public class LogUtilityTests

@@ -1,4 +1,4 @@
-﻿namespace SwallowNest.Ashiato
+﻿namespace SwallowNest.Bluewell
 {
 	/// <summary>
 	/// 表示するログの詳しさを表します。

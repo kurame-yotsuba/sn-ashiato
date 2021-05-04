@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SwallowNest.Ashiato
+namespace SwallowNest.Bluewell
 {
 	public readonly struct LogInfo
 	{

@@ -1,4 +1,2 @@
-# sn-ashiato
-.Net Core用のロギングライブラリ
-
-「sn」は「SwallowNest」の略
+# bluewell
+.NET 用の簡易的なロギングライブラリ

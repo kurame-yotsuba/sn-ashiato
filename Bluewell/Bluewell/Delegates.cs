@@ -1,4 +1,4 @@
-﻿namespace SwallowNest.Ashiato
+﻿namespace SwallowNest.Bluewell
 {
 	/// <summary>
 	/// 文字列とログレベルを受け取るイベントハンドラーを表す型です。

@@ -1,7 +1,7 @@
-﻿using SwallowNest.Ashiato;
+﻿using SwallowNest.Bluewell;
 using System;
 
-namespace Ashiato.Example
+namespace SwallowNest.Bluewell.Sample
 {
     class Program
     {

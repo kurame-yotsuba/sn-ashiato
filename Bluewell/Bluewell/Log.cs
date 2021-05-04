@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace SwallowNest.Ashiato
+namespace SwallowNest.Bluewell
 {
 	public static class Log
 	{

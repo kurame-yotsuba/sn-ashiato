@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SwallowNest.Ashiato
+namespace SwallowNest.Bluewell
 {
 	public static class LogUtility
 	{

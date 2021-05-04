@@ -10,19 +10,19 @@ namespace SwallowNest.Bluewell.Tests
 		/// <summary>
 		/// ログの出力先
 		/// </summary>
-		private List<string> log;
+		private List<string> logOutput;
 
 		private readonly string sampleText = "sample text";
 
 		void SamplePrinter(LogInfo log)
 		{
-			this.log.Add(log.Text);
+			this.logOutput.Add(log.Text);
 		}
 
 		[TestInitialize]
-		public void TestInitialize()
+		public void TestInit()
 		{
-			log = new List<string>();
+			logOutput = new List<string>();
 		}
 
 		[TestMethod()]
@@ -36,7 +36,7 @@ namespace SwallowNest.Bluewell.Tests
 
 			for (int i = 0; i < 10; i++)
 			{
-				log[i].Is($"{sampleText} {i}");
+				logOutput[i].Is($"{sampleText} {i}");
 			}
 		}
 
@@ -68,13 +68,13 @@ namespace SwallowNest.Bluewell.Tests
 			Log.OutputLogLevel = LogLevel.INFO;
 
 			Log.Info(sampleText);
-			log[0].Is(sampleText);
+			logOutput[0].Is(sampleText);
 
 			Log.Warn(sampleText);
-			log[1].Is(sampleText);
+			logOutput[1].Is(sampleText);
 
 			Log.Error(sampleText);
-			log[2].Is(sampleText);
+			logOutput[2].Is(sampleText);
 		}
 
 		[DataTestMethod]
@@ -86,7 +86,7 @@ namespace SwallowNest.Bluewell.Tests
 			Log.Trace(sampleText);
 			Log.Debug(sampleText);
 
-			log.Count.Is(0);
+			logOutput.Count.Is(0);
 		}
 
 		[TestMethod]
@@ -94,9 +94,9 @@ namespace SwallowNest.Bluewell.Tests
 		{
 			void 要素が5つ以上だったら先頭のログを削除()
 			{
-				if (log.Count >= 5)
+				if (logOutput.Count >= 5)
 				{
-					log.RemoveAt(0);
+					logOutput.RemoveAt(0);
 				}
 			}
 
@@ -104,26 +104,26 @@ namespace SwallowNest.Bluewell.Tests
 			Log.Reflesh += 要素が5つ以上だったら先頭のログを削除;
 
 			Log.Info("");
-			log.Count.Is(1);
+			logOutput.Count.Is(1);
 
 			Log.Info("");
-			log.Count.Is(2);
+			logOutput.Count.Is(2);
 
 			Log.Info("");
-			log.Count.Is(3);
+			logOutput.Count.Is(3);
 
 			Log.Info("");
-			log.Count.Is(4);
+			logOutput.Count.Is(4);
 
 			// これ以上はログが増えない
 			Log.Info("");
-			log.Count.Is(5);
+			logOutput.Count.Is(5);
 
 			Log.Info("");
-			log.Count.Is(5);
+			logOutput.Count.Is(5);
 
 			Log.Info("");
-			log.Count.Is(5);
+			logOutput.Count.Is(5);
 		}
 
 		[TestMethod]
